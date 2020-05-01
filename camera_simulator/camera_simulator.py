@@ -118,17 +118,17 @@ class CameraSimulator(Node):
         ci = CameraInfo()
 
         # fill in CameraInfo fields
-        ci.width = calib["image_width"]
-        ci.height = calib["image_height"]
-        ci.distortion_model = calib["distortion_model"]
+        ci.width = self.calib["image_width"]
+        ci.height = self.calib["image_height"]
+        ci.distortion_model = self.calib["distortion_model"]
         # ci.D = calib['distortion_coefficients']['data']
-        ci.d = calib["distortion_coefficients"]["data"]
+        ci.d = self.calib["distortion_coefficients"]["data"]
         # ci.K = calib['camera_matrix']['data']
-        ci.k = calib["camera_matrix"]["data"]
+        ci.k = self.calib["camera_matrix"]["data"]
         # ci.R = calib['rectification_matrix']['data']
-        ci.r = calib["rectification_matrix"]["data"]
+        ci.r = self.calib["rectification_matrix"]["data"]
         # ci.P = calib['projection_matrix']['data']
-        ci.p = calib["projection_matrix"]["data"]
+        ci.p = self.calib["projection_matrix"]["data"]
 
         ci.header.stamp = time
         ci.header.frame_id = self.frame_id_
@@ -166,6 +166,9 @@ class CameraSimulator(Node):
 
 
 def main(args=None):
+
+    # Usage: ros2 run camera_simulator camera_simulator --type video --path <my-video-path>
+
     parser = argparse.ArgumentParser(description="Video file or files to load")
     parser.add_argument("--path", type=str, default="", required=True, help="path to video folder")
     parser.add_argument("--calibration_file", type=str, default="", help="path to video folder")
